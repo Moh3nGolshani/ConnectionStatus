@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2" />
+    </dependencies>
+    <projectUrl>http://project_url_here_or_delete_this_line/</projectUrl>
+    <icon>Icon.png</icon>
+    <description>$description$</description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>ConnectionStatus ConnectionStatusIndicator StatusIndicator</tags>
+  </metadata>
+  <files>
+    <file src="Icon.png" target="" />
+  </files>
+</package>

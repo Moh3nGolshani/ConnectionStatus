@@ -1,0 +1,19 @@
+﻿<Window x:Class="Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Demo" 
+        xmlns:connectionstatus="clr-namespace:ConnectionStatus;assembly=ConnectionStatus"
+        mc:Ignorable="d"
+        Title="MainWindow" Background="#FFBFBCC1" Height="450" Width="800">
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <Button Content="Disconnected" Click="Disconnected_Click" Margin="12" Width="100" Height="27"/>
+            <Button Content="Connecting" Click="Connecting_Click" Margin="12" Width="100" Height="27"/>
+            <Button Content="Verifying" Click="Verifying_Click" Margin="12" Width="100" Height="27"/>
+            <Button Content="Connected" Click="Connected_Click" Margin="12" Width="100" Height="27"/>
+        </StackPanel>
+        <connectionstatus:CortanaControl Margin="12" Width="100" Height="100"/>
+    </Grid>
+</Window>

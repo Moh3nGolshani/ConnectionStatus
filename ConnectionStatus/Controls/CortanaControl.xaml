@@ -1,0 +1,263 @@
+﻿<UserControl x:Class="ConnectionStatus.CortanaControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConnectionStatus"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+            <PowerEase x:Key="PowerEasing" />
+            <BackEase x:Key="BackEasing" Amplitude="3" EasingMode="EaseOut"/>
+            <SineEase x:Key="SinEasing" />
+
+            <Color x:Key="DisconnectedCIBrush">#FFFFFFFF</Color>
+            <Color x:Key="ConnectedCIBrush">#FF08D108</Color>
+            <Color x:Key="ConnectingCIBrush">Gold</Color>
+            <Color x:Key="VerifyingCIBrush">Gold</Color>
+
+            <Color x:Key="DisconnectedCEBrush">#FFD3DEDC</Color>
+            <Color x:Key="ConnectedCEBrush">#FF008706</Color>
+            <Color x:Key="ConnectingCEBrush">Orange</Color>
+            <Color x:Key="VerifyingCEBrush">Orange</Color>
+
+            <Storyboard FillBehavior="Stop" x:Key="InternalStopSB">
+                <DoubleAnimation Storyboard.TargetProperty="Theta" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="Rotate" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="Translate" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="InternalRadius" Duration="0:0:0.25" To="0.3" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" Duration="0:0:0.25" To="0.4" AutoReverse="False"/>
+            </Storyboard>
+
+            <Storyboard FillBehavior="HoldEnd" x:Key="InternalResetSB">
+                <DoubleAnimation Storyboard.TargetProperty="Theta" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="Rotate" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="Translate" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="InternalRadius" Duration="0:0:0.25" To="0.3" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" Duration="0:0:0.25" To="0.4" AutoReverse="False"/>
+            </Storyboard>
+
+            <Storyboard FillBehavior="Stop" x:Key="ExternalStopSB">
+                <DoubleAnimation Storyboard.TargetProperty="Theta" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="Rotate" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="Translate" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="InternalRadius" Duration="0:0:0.25" To="0.4" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" Duration="0:0:0.25" To="0.5" AutoReverse="False"/>
+            </Storyboard>
+
+            <Storyboard FillBehavior="HoldEnd" x:Key="ExternalResetSB">
+                <DoubleAnimation Storyboard.TargetProperty="Theta" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="Rotate" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="Translate" Duration="0:0:0.25" To="0" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="InternalRadius" Duration="0:0:0.25" To="0.4" AutoReverse="False"/>
+                <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" Duration="0:0:0.25" To="0.5" AutoReverse="False"/>
+            </Storyboard>
+
+            <Style TargetType="local:RingControl" x:Key="InternalStyle">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="None">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Name="NoneSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Disconnected">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource InternalResetSB}"/>
+                            <BeginStoryboard Name="DisconnectedSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                    <ColorAnimation Duration="0:0:0.3" To="{StaticResource DisconnectedCIBrush}" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="InternalRadius" BeginTime="0:0:0.25" Duration="0:0:0.75" To="0.17" AutoReverse="False"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" BeginTime="0:0:0.45" Duration="0:0:0.55" To="0.27" AutoReverse="False"/>
+
+                                    <DoubleAnimation Storyboard.TargetProperty="Translate" BeginTime="0:0:1" Duration="0:0:0.75" To="0.25" />
+
+                                    <DoubleAnimation Storyboard.TargetProperty="Translate" BeginTime="0:0:1.75" Duration="0:0:1" 
+                                                     From="0.25" To="0.1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="DisconnectedSB"/>
+                            <BeginStoryboard Storyboard="{StaticResource InternalStopSB}"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Connected">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource InternalResetSB}"/>
+                            <BeginStoryboard Name="ConnectedSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                    <ColorAnimation Duration="0:0:0.3" To="{StaticResource ConnectedCIBrush}" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="InternalRadius" BeginTime="0:0:0.25" Duration="0:0:2" 
+                                                     From="0.3" To="0.2" AutoReverse="True" RepeatBehavior="Forever"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" BeginTime="0:0:0.25" Duration="0:0:2" 
+                                                     From="0.4" To="0.3" AutoReverse="True" RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="ConnectedSB"/>
+                            <BeginStoryboard Storyboard="{StaticResource InternalStopSB}"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Connecting">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource InternalResetSB}"/>
+                            <BeginStoryboard Name="ConnectingSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                    <ColorAnimation Duration="0:0:0.3" To="{StaticResource ConnectingCIBrush}" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="InternalRadius" BeginTime="0:0:0.25" Duration="0:0:0.75" To="0" AutoReverse="False"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" BeginTime="0:0:0.25" Duration="0:0:0.75" To="0.25" AutoReverse="False"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="Translate" BeginTime="0:0:0" Duration="0:0:0.75" To="0" AutoReverse="False"/>
+
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Translate" BeginTime="0:0:1" RepeatBehavior="Forever">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.2" EasingFunction="{StaticResource PowerEasing}"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.525" Value="-0.35" EasingFunction="{StaticResource PowerEasing}"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.80" Value="0.2" EasingFunction="{StaticResource PowerEasing}"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" EasingFunction="{StaticResource PowerEasing}"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0" EasingFunction="{StaticResource PowerEasing}"/>
+                                    </DoubleAnimationUsingKeyFrames>
+
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="ConnectingSB"/>
+                            <BeginStoryboard Storyboard="{StaticResource InternalStopSB}"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Verifying">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource InternalResetSB}"/>
+                            <BeginStoryboard Name="VerifyingSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                    <ColorAnimation Duration="0:0:0.3" To="{StaticResource VerifyingCIBrush}" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="InternalRadius" BeginTime="0:0:0.25" Duration="0:0:0.3" To="0.22" AutoReverse="False"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" BeginTime="0:0:0.25" Duration="0:0:0.3" To="0.35" AutoReverse="False"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="Translate" BeginTime="0:0:0.25" Duration="0:0:0.3" To="-0.2" AutoReverse="False" EasingFunction="{StaticResource PowerEasing}"/>
+
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="VerifyingSB"/>
+                            <BeginStoryboard Storyboard="{StaticResource InternalStopSB}"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="local:RingControl" x:Key="ExternalStyle">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="None">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Name="NoneSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Disconnected">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource ExternalResetSB}"/>
+                            <BeginStoryboard Name="DisconnectedSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                    <ColorAnimation Duration="0:0:0.3" To="{StaticResource DisconnectedCEBrush}" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="Translate" BeginTime="0:0:1" Duration="0:0:0.75" To="0.125" />
+
+                                    <DoubleAnimation Storyboard.TargetProperty="Translate" BeginTime="0:0:1.75" Duration="0:0:1" 
+                                                     From="0.125" To="0.025" AutoReverse="True" RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="DisconnectedSB"/>
+                            <BeginStoryboard Storyboard="{StaticResource ExternalStopSB}"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Connected">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource ExternalResetSB}"/>
+                            <BeginStoryboard Name="ConnectedSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                    <ColorAnimation Duration="0:0:0.3" To="{StaticResource ConnectedCEBrush}" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="InternalRadius" BeginTime="0:0:0.25" Duration="0:0:2" 
+                                                     From="0.4" To="0.3" AutoReverse="True" RepeatBehavior="Forever"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" BeginTime="0:0:0.25" Duration="0:0:2" 
+                                                     From="0.5" To="0.55" AutoReverse="True" RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="ConnectedSB"/>
+                            <BeginStoryboard Storyboard="{StaticResource ExternalStopSB}"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Connecting">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource ExternalResetSB}"/>
+                            <BeginStoryboard Name="ConnectingSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                    <ColorAnimation Duration="0:0:0.3" To="{StaticResource ConnectingCEBrush}" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="Translate" BeginTime="0:0:0" Duration="0:0:0.75" To="0" AutoReverse="False"/>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Translate" BeginTime="0:0:1" RepeatBehavior="Forever">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.05" EasingFunction="{StaticResource PowerEasing}"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.525" Value="-0.2" EasingFunction="{StaticResource PowerEasing}"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.80" Value="0.05" EasingFunction="{StaticResource PowerEasing}"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" EasingFunction="{StaticResource PowerEasing}"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0" EasingFunction="{StaticResource PowerEasing}"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="ConnectingSB"/>
+                            <BeginStoryboard Storyboard="{StaticResource ExternalStopSB}"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Verifying">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource ExternalResetSB}"/>
+                            <BeginStoryboard Name="VerifyingSB">
+                                <Storyboard FillBehavior="HoldEnd">
+                                    <ColorAnimation Duration="0:0:0.3" To="{StaticResource VerifyingCEBrush}" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="InternalRadius" BeginTime="0:0:0.25" Duration="0:0:0.3" To="0.45" AutoReverse="False"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="ExternalRadius" BeginTime="0:0:0.25" Duration="0:0:0.3" To="0.55" AutoReverse="False"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="Translate" BeginTime="0:0:0.25" Duration="0:0:0.3" To="-0.2" AutoReverse="False" EasingFunction="{StaticResource PowerEasing}"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="Rotate" BeginTime="0:0:0.25" Duration="0:0:0.9" To="360" AutoReverse="False" RepeatBehavior="Forever"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="Theta" BeginTime="0:0:0.35" Duration="0:0:0.2" To="20" AutoReverse="False" />
+
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Theta" BeginTime="0:0:0.55" RepeatBehavior="Forever">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="25"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="10"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.75" Value="25"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <RemoveStoryboard BeginStoryboardName="VerifyingSB"/>
+                            <BeginStoryboard Storyboard="{StaticResource ExternalStopSB}"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Viewbox>
+        <Grid>
+            <local:RingControl Fill="#FF00A0C6" Theta="0" Style="{StaticResource InternalStyle}" InternalRadius="0.3" ExternalRadius="0.4"/>
+            <local:RingControl Fill="#FF06667C" Theta="0" Style="{StaticResource ExternalStyle}" InternalRadius="0.4" ExternalRadius="0.5" />
+        </Grid>
+    </Viewbox>
+</UserControl>

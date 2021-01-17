@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="ConnectionStatus.RingControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConnectionStatus">
+    <Grid>
+        <Canvas x:Name="Canvas">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform x:Name="RotateTransform" Angle="{Binding Data.Rotate}"/>
+                    <TranslateTransform X="0" Y="{Binding Data.Translate}" />
+                </TransformGroup>
+            </Canvas.RenderTransform>
+            <Path Fill="{Binding Data.Fill}" Stroke="{Binding Data.Stroke}" StrokeThickness="{Binding Data.StrokeThickness}">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="True" StartPoint="{Binding Data[0]}">
+                            <ArcSegment SweepDirection="Counterclockwise"
+                                        Size="{Binding Data.ExternalSegmentSize}" 
+                                        IsLargeArc="False" 
+                                        Point="{Binding Data[1]}"/>
+                            <LineSegment Point="{Binding Data[2]}"/>
+                            <ArcSegment SweepDirection="Clockwise"
+                                        Size="{Binding Data.InternalSegmentSize}" 
+                                        IsLargeArc="False" 
+                                        Point="{Binding Data[3]}"/>
+                        </PathFigure>
+                        <PathFigure IsClosed="True" StartPoint="{Binding Data[4]}">
+                            <ArcSegment SweepDirection="Counterclockwise"
+                                        Size="{Binding Data.ExternalSegmentSize}" 
+                                        IsLargeArc="False" 
+                                        Point="{Binding Data[5]}"/>
+                            <LineSegment Point="{Binding Data[6]}"/>
+                            <ArcSegment SweepDirection="Clockwise"
+                                        Size="{Binding Data.InternalSegmentSize}" 
+                                        IsLargeArc="False" 
+                                        Point="{Binding Data[7]}"/>
+                        </PathFigure>
+                        <PathFigure IsClosed="True" StartPoint="{Binding Data[8]}">
+                            <ArcSegment SweepDirection="Counterclockwise"
+                                        Size="{Binding Data.ExternalSegmentSize}" 
+                                        IsLargeArc="False" 
+                                        Point="{Binding Data[9]}"/>
+                            <LineSegment Point="{Binding Data[10]}"/>
+                            <ArcSegment SweepDirection="Clockwise"
+                                        Size="{Binding Data.InternalSegmentSize}" 
+                                        IsLargeArc="False" 
+                                        Point="{Binding Data[11]}"/>
+                        </PathFigure>
+                        <PathFigure IsClosed="True" StartPoint="{Binding Data[12]}">
+                            <ArcSegment SweepDirection="Counterclockwise"
+                                        Size="{Binding Data.ExternalSegmentSize}" 
+                                        IsLargeArc="False" 
+                                        Point="{Binding Data[13]}"/>
+                            <LineSegment Point="{Binding Data[14]}"/>
+                            <ArcSegment SweepDirection="Clockwise"
+                                        Size="{Binding Data.InternalSegmentSize}" 
+                                        IsLargeArc="False" 
+                                        Point="{Binding Data[15]}"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+        </Canvas>
+    </Grid>
+</UserControl>
