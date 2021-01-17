@@ -1,7 +1,7 @@
 # ConnectionStatus
 A connection status for wpf based on the Cortana UI and animations  
 
-<img src="https://github.com/Peoky/BusyIndicator/blob/master/Images/Demo.gif" alt="Demo - Dash Loader" width="90%"></img>   
+<img src="https://github.com/Peoky/ConnectionStatus/blob/master/Images/Demo.gif" alt="Connection Status Demo" width="90%"></img>   
 
 ## Prerequisites:
 <ul><li>.Net Framework 4.7.2 or higher</li></ul>  
