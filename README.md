@@ -1,5 +1,5 @@
 # ConnectionStatus
-A connection status for wpf based on the Cortana UI and animations  
+A connection status for WPF based on the Cortana UI and animations  
 
 <img src="https://github.com/Peoky/ConnectionStatus/blob/master/Images/Demo.gif" alt="Connection Status Demo" width="90%"></img>   
 
