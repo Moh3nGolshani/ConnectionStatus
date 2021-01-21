@@ -16,7 +16,7 @@ A connection status controller for WPF based on the Cortana UI and animations
 3. Add controller to your view:  
 <pre><code>&lt;connectionstatus:CortanaControl Margin="12" Width="100" Height="100"/&gt;</code></pre>  
 
-4. Create a public property named `ConnectionStatus` of type `ConnectionStatus.ConnectionStatus` and set its value to `Disconnected`, `Connecting`, `Verifying` or `Connected` (check demo for a working example).
+4. Declare a public property named `ConnectionStatus` of type `ConnectionStatus.ConnectionStatus` and set its value to `Disconnected`, `Connecting`, `Verifying` or `Connected` (check demo for a working example).
 
 ##
 If you like this, give it a * please.
